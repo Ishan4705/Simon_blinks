@@ -1,0 +1,49 @@
+
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+h3 {
+    text-align: center;
+}
+
+
+.btn_container {
+    display: flex;
+    justify-content: center;
+}
+
+.btn {
+    border: 5px solid black;
+    border-radius: 20%;
+    height: 100px;
+    width: 100px;
+    margin: 8px;
+
+}
+
+
+.red {
+    background-color: red;
+}
+
+.green {
+    background-color: green;
+}
+.yellow {
+    background-color: yellow;
+}
+.blue {
+    background-color: blue;
+}
+
+.flash {
+    background-color: rgb(221, 11, 95);
+}
+.userflash {
+    background-color: black;
+}
