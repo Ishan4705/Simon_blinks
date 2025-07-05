@@ -1,20 +1,79 @@
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+}
 
 h1 {
     text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2.5rem;
 }
 
 h2 {
     text-align: center;
-}
-h3 {
-    text-align: center;
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
 }
 
+h3 {
+    text-align: center;
+    color: #888;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+.start-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-bottom: 30px;
+    transition: background-color 0.3s;
+}
+
+.start-btn:hover {
+    background-color: #45a049;
+}
+
+.start-btn:active {
+    transform: scale(0.95);
+}
 
 .btn_container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.one_line, .two_line {
+    display: flex;
+    gap: 10px;
 }
 
 .btn {
@@ -22,10 +81,34 @@ h3 {
     border-radius: 20%;
     height: 100px;
     width: 100px;
-    margin: 8px;
-
+    cursor: pointer;
+    transition: all 0.3s;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+/* Touch-specific styles */
+@media (hover: none) and (pointer: coarse) {
+    .btn:hover {
+        transform: none;
+    }
+    
+    .btn:active {
+        transform: scale(0.9);
+    }
+}
 
 .red {
     background-color: red;
@@ -34,9 +117,11 @@ h3 {
 .green {
     background-color: green;
 }
+
 .yellow {
     background-color: yellow;
 }
+
 .blue {
     background-color: blue;
 }
@@ -44,6 +129,90 @@ h3 {
 .flash {
     background-color: rgb(221, 11, 95);
 }
+
 .userflash {
     background-color: black;
+}
+
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+    
+    h2 {
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+    
+    h3 {
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+    }
+    
+    .start-btn {
+        padding: 12px 24px;
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+    
+    .btn {
+        height: 80px;
+        width: 80px;
+        border-width: 4px;
+    }
+    
+    .btn_container {
+        gap: 8px;
+    }
+    
+    .one_line, .two_line {
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    h2 {
+        font-size: 0.9rem;
+    }
+    
+    h3 {
+        font-size: 0.8rem;
+    }
+    
+    .start-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    
+    .btn {
+        height: 70px;
+        width: 70px;
+        border-width: 3px;
+    }
+    
+    .btn_container {
+        gap: 5px;
+    }
+    
+    .one_line, .two_line {
+        gap: 5px;
+    }
+}
+
+@media (max-width: 320px) {
+    .btn {
+        height: 60px;
+        width: 60px;
+        border-width: 2px;
+    }
 }

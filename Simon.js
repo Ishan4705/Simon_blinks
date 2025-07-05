@@ -4,18 +4,53 @@ let btns=["red","blue","green","yellow"];
 
 let started=false;
 let lvl=0;
+let highestScore=0; // Track the highest score in the session
 
 let h2=document.querySelector("h2");
 let h3=document.querySelector("h3");
+let startBtn=document.querySelector("#startBtn");
 
-document.addEventListener("keypress", function(){
+// Function to start the game
+function startGame() {
     if(started==false){
         console.log("game is started.");
         started=true;
+        startBtn.style.display = "none";
+        h2.innerText = "Watch the sequence!";
         level();
     }
-    
+}
+
+// Handle keyboard input (for desktop)
+document.addEventListener("keypress", startGame);
+
+// Handle start button click (for mobile/tablet)
+startBtn.addEventListener("click", startGame);
+
+// Handle touch events for mobile devices
+startBtn.addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    startGame();
 });
+
+// Update h2 text for mobile devices
+function updateInstructions() {
+    if (window.innerWidth <= 768) {
+        h2.innerText = "Tap 'Start Game' to begin";
+    } else {
+        h2.innerText = "Press any key to start the game";
+    }
+}
+
+// Update instructions on load and resize
+window.addEventListener("load", function(){
+    updateInstructions();
+    // Initialize the highest score display
+    if(highestScore > 0){
+        h3.innerText=`Highest score: ${highestScore}`;
+    }
+});
+window.addEventListener("resize", updateInstructions);
 
 function level() {
     User_Seq=[];
@@ -52,8 +87,13 @@ reset=()=>{
     Original_Seq=[];
     User_Seq=[]
     lvl=0;
-    console.log(`Highest score is ${x}`);
-    h3.innerText=`Highest score is ${x}`;
+    startBtn.style.display = "block";
+    updateInstructions();
+    
+    // Display highest score if it exists
+    if(highestScore > 0){
+        h3.innerText=`Highest score: ${highestScore}`;
+    }
 }
 
 
@@ -66,8 +106,33 @@ function checkans(idx){
             setTimeout(level,1000);
         }
     } else {
-        h2.innerText=`Game Over! Your score is ${x=lvl}
-        Press any key to start.`;
+        let currentScore = lvl;
+        
+        // Update highest score only if current score beats it
+        let isNewHighScore = currentScore > highestScore;
+        if(isNewHighScore){
+            highestScore = currentScore;
+        }
+        
+        // Display appropriate message based on device and score
+        if (window.innerWidth <= 768) {
+            if(isNewHighScore){
+                h2.innerText=`Game Over! New High Score: ${currentScore}
+                Tap 'Start Game' to play again.`;
+            } else {
+                h2.innerText=`Game Over! Your score: ${currentScore}
+                Tap 'Start Game' to play again.`;
+            }
+        } else {
+            if(isNewHighScore){
+                h2.innerText=`Game Over! New High Score: ${currentScore}
+                Press any key to start.`;
+            } else {
+                h2.innerText=`Game Over! Your score: ${currentScore}
+                Press any key to start.`;
+            }
+        }
+        
         document.querySelector("body").style.backgroundColor="maroon";
         setTimeout(function(){
             document.querySelector("body").style.backgroundColor="white";
@@ -80,16 +145,28 @@ function checkans(idx){
 
 let allbtns=document.querySelectorAll(".btn");
 for(btn of allbtns){
-    btn.addEventListener("click",function btnpress(){
-        let btn=this;// this is pointing towards button 
-        // console.log(this);
+    // Handle click events
+    btn.addEventListener("click", function btnpress(){
+        let btn=this;
         btnFlashup2(btn);
         usercolor= btn.getAttribute("id");
-        // console.log(usercolor);
         User_Seq.push(usercolor);
-        // console.log(User_Seq);
-        // console.log(Original_Seq);
         checkans(User_Seq.length-1);
+    });
+    
+    // Handle touch events for mobile devices
+    btn.addEventListener("touchstart", function(e){
+        e.preventDefault(); // Prevent default touch behavior
+        let btn=this;
+        btnFlashup2(btn);
+        usercolor= btn.getAttribute("id");
+        User_Seq.push(usercolor);
+        checkans(User_Seq.length-1);
+    });
+    
+    // Prevent context menu on long touch
+    btn.addEventListener("contextmenu", function(e){
+        e.preventDefault();
     });
 }
 
